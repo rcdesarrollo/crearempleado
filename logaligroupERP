@@ -1,0 +1,15 @@
+#Password=<< Existing password/certificate removed on export >>
+#
+#Thu Jan 27 19:10:13 UTC 2022
+Description=ABAP NPL
+Type=HTTP
+HTML5.DynamicDestination=true
+Authentication=BasicAuthentication
+WebIDEUsage=odata_gen,odata_abap,dev_abap,ui5_execute_abap
+Name=logaligroupERP
+WebIDEEnabled=true
+ProxyType=Internet
+URL=http\://erp13.sap4practice.com\:9037
+sap-client=001
+User=sapui5
+WebIDESystem=NPL

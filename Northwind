@@ -1,0 +1,12 @@
+#
+#Thu Jan 27 19:10:21 UTC 2022
+Description=Northwind
+Type=HTTP
+HTML5.DynamicDestination=true
+Authentication=NoAuthentication
+WebIDEUsage=odata_gen
+Name=Northwind
+WebIDEEnabled=true
+ProxyType=Internet
+URL=https\://services.odata.org/
+WebIDESystem=true
