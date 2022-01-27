@@ -1,0 +1,180 @@
+<mvc:View
+    height="100%"
+    controllerName="fabrica.mm.crearempleado.controller.Crear"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+<!--    <Shell id="shell">
+        <App id="app">  -->
+        
+        <NavContainer id="wizardNavContainer">
+            <pages>
+                <Page id="wizardContentPage"
+                title="{i18n>title}"
+				showHeader="true">
+                    <content>
+                        <Wizard id="CreateProductWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+								complete="wizardCompletedHandler">
+                            <WizardStep id="ProductTypeStep"
+										title="Tipo de empleado"
+										validated="true">
+                                <MessageStrip class="sapUiSmallMarginBottom"
+										text="Seleccione el tipo de empleado para rellenar sus datos."
+										showIcon="true"/>
+                                <HBox
+										alignItems="Center"
+										justifyContent="Center"
+										width="100%">
+                                    <SegmentedButton
+										width="320px"
+										selectionChange="setProductTypeFromSegmented">
+										<items>
+											<SegmentedButtonItem icon="sap-icon://iphone" text="Interno"/>
+											<SegmentedButtonItem icon="sap-icon://sys-monitor" text="Autónomo"/>
+											<SegmentedButtonItem icon="sap-icon://database" text="Gerente"/>
+										</items>
+									</SegmentedButton>
+                                </HBox>
+                            </WizardStep>  
+                            <WizardStep id="ProductInfoStep"
+										validated="false"
+										title="Datos de empleado"
+										activate="additionalInfoValidation">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Complete los datos obligatorios para poder continuar."
+										showIcon="true"/>								
+								<form:SimpleForm
+										editable="true">
+
+									<Label text="Nombre" required="true"/>
+									<Input valueStateText="Ingrese nombre"
+											valueState="{/productNameState}" id="ProductName" liveChange="additionalInfoValidation"
+											placeholder="Ingresa mayor a 6 caracteres" value="{/productName}"/>
+
+                                    <Label text="Apellido" required="true"/>
+									<Input valueStateText="Ingrese apellido"
+											valueState="{/productNameState}" id="apellido" liveChange="additionalInfoValidation"
+											placeholder="Ingresa mayor a 6 caracteres" value="{/productName}"/>
+									
+                                    <Label text="DNI" required="true"/>
+									<Input valueStateText="Ingrese DNI"
+											valueState="{/productNameState}" id="dni" liveChange="additionalInfoValidation"
+											placeholder="Ingrese DNI" value="{/productName}"/>
+                                    
+                                    <Label text="CIF" required="false"/>
+									<Input valueStateText="Ingrese CIF"
+											valueState="{/productNameState}" id="cif" liveChange="additionalInfoValidation"
+											placeholder="Ingrese CIF" value="{/productName}"/>
+
+                                    <Label text="Saldo bruto anual" required="false"/>
+                                    <RangeSlider showAdvancedTooltip="true" enableTickmarks="true" class="sapUiMediumMarginBottom"/>
+
+                                    <Label text="Precio diario" required="false"/>
+                               		<RangeSlider showAdvancedTooltip="true" range="0,100" min="0" max="500" width="100%" showHandleTooltip="false" inputsAsTooltips="true" class="sapUiLargeMarginBottom" />
+
+                                    <Label text="Fecha de incorporación" labelFor="DP1" required="true"/>
+                                    <DatePicker
+                                        id="DP1"
+                                        displayFormat="short"
+									    value="{/manufacturingDate}"
+                                        placeholder="Ingrese Fecha"
+                                        change="handleChange"
+                                        class="sapUiSmallMarginBottom"/>
+								</form:SimpleForm>
+							</WizardStep>      
+                            <WizardStep id="PricingStep"
+										activate="pricingActivate"
+										complete="pricingComplete"
+										validated="true"
+										title="Información adicional">
+								<MessageStrip class="sapUiSmallMarginBottom"
+										text="Introduce datos complementarios, si no dé al botón “Verificar”"
+										showIcon="true"/>
+								<form:SimpleForm
+										editable="true">
+									<Label text="Comentario"/>
+									<TextArea value="{/productDescription}" rows="8"/>
+									
+									<Label text="Archivos"/>
+									<u:FileUploader
+											width="100%"
+											tooltip="Carga de archivos"
+											style="Emphasized"
+											placeholder="Seleccione archivos ..."/>
+								</form:SimpleForm>
+							</WizardStep>                            
+                        </Wizard>
+                    </content>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="Cancelar" press="handleWizardCancel"/>
+						</OverflowToolbar>
+					</footer>
+                </Page>                
+                <Page id="wizardReviewPage" showHeader="false">
+                    <content>
+                        <form:SimpleForm
+								title="1. Product Type"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Type"/>
+								<Text id="ProductTypeChosen" text="{/productType}"/>
+								<Link press="editStepOne" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+                        <form:SimpleForm
+								title="2. Product Information"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Name"/>
+								<Text id="ProductNameChosen" text="{/productName}"/>
+								<Label text="Weight"/>
+								<Text id="ProductWeightChosen" text="{/productWeight}"/>
+								<Label text="Manufacturer"/>
+								<Text id="ProductManufacturerChosen" text="{/productManufacturer}"/>
+								<Label text="Description"/>
+								<Text id="ProductDescriptionChosen" text="{/productDescription}"/>
+								<Link press="editStepTwo" text="Edit" />
+							</form:content>
+						</form:SimpleForm>
+						<form:SimpleForm
+								title="4. Pricing"
+								minWidth="1024"
+								editable="false"
+								layout="ResponsiveGridLayout">
+							<form:content>
+								<Label text="Price"/>
+								<Text id="ProductPriceChosen" text="{/productPrice}"/>
+								<Label text="Discount Group"/>
+								<Text id="DiscountGroupChosen" text="{/discountGroup}"/>
+								<Label text="VAT Included"/>
+								<Text id="ProductVATChosen" text="{/productVAT}"/>
+								<Link press="editStepFour" text="Edit" />
+							</form:content>
+						</form:SimpleForm>                        
+                    </content>
+                    <footer>
+						<Bar>
+							<contentRight>
+								<Button text="Enviar" press="handleWizardSubmit"/>
+								<Button text="Cancelar" press="handleWizardCancel"/>
+							</contentRight>
+						</Bar>
+					</footer>
+                </Page>
+            </pages>
+        </NavContainer>
+
+<!--        </App>
+    </Shell> -->
+
+</mvc:View>
