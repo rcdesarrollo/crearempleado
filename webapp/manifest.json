@@ -71,7 +71,7 @@
                     "bundleName": "fabrica.mm.crearempleado.i18n.i18n"
                 }
             },
-            "": {
+            "ZEMPLOYEES_SRV": {
                 "dataSource": "mainService",
                 "preload": true,
                 "settings": {}

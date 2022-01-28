@@ -34,7 +34,7 @@
 										selectionChange="setProductTypeFromSegmented">
 										<items>
 											<SegmentedButtonItem icon="sap-icon://iphone" text="Interno"/>
-											<SegmentedButtonItem icon="sap-icon://sys-monitor" text="Autónomo"/>
+											<SegmentedButtonItem icon="sap-icon://sys-monitor" text="Autonomo"/>
 											<SegmentedButtonItem icon="sap-icon://database" text="Gerente"/>
 										</items>
 									</SegmentedButton>
@@ -53,29 +53,29 @@
 									<Label text="Nombre" required="true"/>
 									<Input valueStateText="Ingrese nombre"
 											valueState="{/productNameState}" id="ProductName" liveChange="additionalInfoValidation"
-											placeholder="Ingresa mayor a 6 caracteres" value="{/productName}"/>
+											placeholder="Ingrese nombre" value="{/FirstName}"/>
 
                                     <Label text="Apellido" required="true"/>
 									<Input valueStateText="Ingrese apellido"
-											valueState="{/productNameState}" id="apellido" liveChange="additionalInfoValidation"
-											placeholder="Ingresa mayor a 6 caracteres" value="{/productName}"/>
+											valueState="{/apellidoState}" id="txtApellido" liveChange="additionalInfoValidation"
+											placeholder="Ingrese apellido" value="{/LastName}"/>
 									
-                                    <Label text="DNI" required="true"/>
-									<Input valueStateText="Ingrese DNI"
-											valueState="{/productNameState}" id="dni" liveChange="additionalInfoValidation"
-											placeholder="Ingrese DNI" value="{/productName}"/>
+                                    <Label text="{/tipoDocumento}" required="true"/>
+									<Input valueStateText="Solo se permite 8 caracteres" maxLength="8"
+											valueState="{/numDocumentoState}" id="txtNumDoc" liveChange="additionalInfoValidation"
+											placeholder="Ingrese numero documento" value="{/Dni}"/>
                                     
-                                    <Label text="CIF" required="false"/>
-									<Input valueStateText="Ingrese CIF"
-											valueState="{/productNameState}" id="cif" liveChange="additionalInfoValidation"
-											placeholder="Ingrese CIF" value="{/productName}"/>
+                                            
 
-                                    <Label text="Saldo bruto anual" required="false"/>
-                                    <RangeSlider showAdvancedTooltip="true" enableTickmarks="true" class="sapUiMediumMarginBottom"/>
+                                    <Label text="{/TipoSaldoPrecio}" required="false"/>
+                                    <RangeSlider showAdvancedTooltip="true" enableTickmarks="true" class="sapUiMediumMarginBottom" 
+                                    id="rangeSaldoPrecio" />
 
-                                    <Label text="Precio diario" required="false"/>
-                               		<RangeSlider showAdvancedTooltip="true" range="0,100" min="0" max="500" width="100%" showHandleTooltip="false" inputsAsTooltips="true" class="sapUiLargeMarginBottom" />
-
+                                    <!-- <Label text="Precio diario" required="false"/>
+                               		<RangeSlider showAdvancedTooltip="true" 
+                                    range="0,100" min="0" max="500" width="100%" showHandleTooltip="false" 
+                                    inputsAsTooltips="true" class="sapUiLargeMarginBottom" /> -->
+                                       
                                     <Label text="Fecha de incorporación" labelFor="DP1" required="true"/>
                                     <DatePicker
                                         id="DP1"
@@ -100,11 +100,17 @@
 									<TextArea value="{/productDescription}" rows="8"/>
 									
 									<Label text="Archivos"/>
-									<u:FileUploader
-											width="100%"
-											tooltip="Carga de archivos"
-											style="Emphasized"
-											placeholder="Seleccione archivos ..."/>
+                                    <UploadCollection id="uploadCollection"
+                                                maximumFilenameLength="55"
+                                                maximumFileSize="10"
+                                                multiple="true"
+                                                sameFilenameAllowed="true"
+                                                instantUpload="true"
+                                                uploadUrl="/sap/opu/odata/sap/YSAPUI5_SRV_01/FilesSet"
+                                                change="onFileChange"
+                                                uploadComplete="onFileUploadComplete"
+                                                beforeUploadStarts="onFileBeforeUpload"
+                                                fileDeleted="onFileDeleted"/>
 								</form:SimpleForm>
 							</WizardStep>                            
                         </Wizard>
@@ -119,7 +125,7 @@
                 <Page id="wizardReviewPage" showHeader="false">
                     <content>
                         <form:SimpleForm
-								title="1. Product Type"
+								title="1. Tipo de empleado"
 								minWidth="1024"
 								editable="false"
 								layout="ResponsiveGridLayout">
@@ -130,7 +136,7 @@
 							</form:content>
 						</form:SimpleForm>
                         <form:SimpleForm
-								title="2. Product Information"
+								title="2. Datos de empleado"
 								minWidth="1024"
 								editable="false"
 								layout="ResponsiveGridLayout">
@@ -147,7 +153,7 @@
 							</form:content>
 						</form:SimpleForm>
 						<form:SimpleForm
-								title="4. Pricing"
+								title="4. Información adicional"
 								minWidth="1024"
 								editable="false"
 								layout="ResponsiveGridLayout">
