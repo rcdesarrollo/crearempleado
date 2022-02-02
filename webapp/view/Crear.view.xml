@@ -29,13 +29,13 @@
 										alignItems="Center"
 										justifyContent="Center"
 										width="100%">
-                                    <SegmentedButton
+                                    <SegmentedButton id="SB1"
 										width="320px"
 										selectionChange="setProductTypeFromSegmented">
 										<items>
-											<SegmentedButtonItem icon="sap-icon://iphone" text="Interno"/>
-											<SegmentedButtonItem icon="sap-icon://sys-monitor" text="Autonomo"/>
-											<SegmentedButtonItem icon="sap-icon://database" text="Gerente"/>
+											<SegmentedButtonItem icon="sap-icon://iphone" text="Interno" key="Interno"/>
+											<SegmentedButtonItem icon="sap-icon://sys-monitor" text="Autonomo" key="Autonomo"/>
+											<SegmentedButtonItem icon="sap-icon://database" text="Gerente" key="Gerente"/>
 										</items>
 									</SegmentedButton>
                                 </HBox>
@@ -69,7 +69,7 @@
 
                                     <Label text="{/TipoSaldoPrecio}" required="false"/>
                                     <RangeSlider showAdvancedTooltip="true" enableTickmarks="true" class="sapUiMediumMarginBottom" 
-                                    id="rangeSaldoPrecio" />
+                                    id="rangeSaldoPrecio" value="{/Amount}" />
 
                                     <!-- <Label text="Precio diario" required="false"/>
                                		<RangeSlider showAdvancedTooltip="true" 
@@ -77,12 +77,14 @@
                                     inputsAsTooltips="true" class="sapUiLargeMarginBottom" /> -->
                                        
                                     <Label text="Fecha de incorporación" labelFor="DP1" required="true"/>
+                                    <!--    displayFormat="short"   -->
                                     <DatePicker
                                         id="DP1"
-                                        displayFormat="short"
-									    value="{/manufacturingDate}"
+                                        valueState="{/fechaState}"
+                                        displayFormat="yyyy-MM-dd"
+									    dateValue="{/CreationDate}"
                                         placeholder="Ingrese Fecha"
-                                        change="handleChange"
+                                        change="additionalInfoValidation"                                        
                                         class="sapUiSmallMarginBottom"/>
 								</form:SimpleForm>
 							</WizardStep>      
@@ -97,7 +99,7 @@
 								<form:SimpleForm
 										editable="true">
 									<Label text="Comentario"/>
-									<TextArea value="{/productDescription}" rows="8"/>
+									<TextArea value="{/Comments}" rows="8"/>
 									
 									<Label text="Archivos"/>
                                     <UploadCollection id="uploadCollection"
@@ -141,14 +143,18 @@
 								editable="false"
 								layout="ResponsiveGridLayout">
 							<form:content>
-								<Label text="Name"/>
-								<Text id="ProductNameChosen" text="{/productName}"/>
-								<Label text="Weight"/>
-								<Text id="ProductWeightChosen" text="{/productWeight}"/>
-								<Label text="Manufacturer"/>
-								<Text id="ProductManufacturerChosen" text="{/productManufacturer}"/>
-								<Label text="Description"/>
-								<Text id="ProductDescriptionChosen" text="{/productDescription}"/>
+								<Label text="Nombre"/>
+								<Text id="ProductNameChosen" text="{/FirstName}"/>
+								<Label text="Apellido"/>
+								<Text id="ProductWeightChosen" text="{/LastName}"/>
+								<Label text="{/tipoDocumento}"/>
+								<Text id="ProductManufacturerChosen" text="{/Dni}"/>
+                                <Label text="{/TipoSaldoPrecio}"/>
+								<Text id="ProductManufacturerChosen1" text="{/Amount}"/>
+                                <Label text="Fecha de incorporación"/>
+								<Text id="ProductManufacturerChosen2" text="{/CreationDate}"/>
+
+
 								<Link press="editStepTwo" text="Edit" />
 							</form:content>
 						</form:SimpleForm>
@@ -158,12 +164,10 @@
 								editable="false"
 								layout="ResponsiveGridLayout">
 							<form:content>
-								<Label text="Price"/>
-								<Text id="ProductPriceChosen" text="{/productPrice}"/>
-								<Label text="Discount Group"/>
-								<Text id="DiscountGroupChosen" text="{/discountGroup}"/>
-								<Label text="VAT Included"/>
-								<Text id="ProductVATChosen" text="{/productVAT}"/>
+								<Label text="Comentario"/>
+								<Text id="ProductDescriptionChosen" text="{/Comments}"/>
+                                <Label text="Documentos"/>
+
 								<Link press="editStepFour" text="Edit" />
 							</form:content>
 						</form:SimpleForm>                        
@@ -171,7 +175,7 @@
                     <footer>
 						<Bar>
 							<contentRight>
-								<Button text="Enviar" press="handleWizardSubmit"/>
+								<Button text="Guardar" press="handleWizardSubmit"/>
 								<Button text="Cancelar" press="handleWizardCancel"/>
 							</contentRight>
 						</Bar>

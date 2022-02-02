@@ -10,7 +10,7 @@
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "dataSources": {
-            "mainService": {
+            "ZEMPLOYEES_SRV": {
                 "uri": "/sap/opu/odata/sap/ZEMPLOYEES_SRV/",
                 "type": "OData",
                 "settings": {
@@ -71,8 +71,8 @@
                     "bundleName": "fabrica.mm.crearempleado.i18n.i18n"
                 }
             },
-            "ZEMPLOYEES_SRV": {
-                "dataSource": "mainService",
+            "employeesModel": {
+                "dataSource": "ZEMPLOYEES_SRV",
                 "preload": true,
                 "settings": {}
             }

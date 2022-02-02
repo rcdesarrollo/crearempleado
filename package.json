@@ -11,11 +11,11 @@
     "main": "webapp/index.html",
     "dependencies": {},
     "devDependencies": {
-        "@ui5/cli": "^2.14.1",
-        "@sap/ux-ui5-tooling": "1",
         "@sap/ui5-builder-webide-extension": "1.0.x",
-        "ui5-task-zipper": "^0.3.1",
-        "mbt": "^1.0.15"
+        "@sap/ux-ui5-tooling": "^1.4.6",
+        "@ui5/cli": "^2.14.1",
+        "mbt": "^1.0.15",
+        "ui5-task-zipper": "^0.3.1"
     },
     "scripts": {
         "start": "fiori run --open 'test/flpSandbox.html?sap-client=001#fabricammcrearempleado-display'",
